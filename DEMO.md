@@ -22,6 +22,7 @@
     - Its dependency injection system is similar to the one in Angular.
     - It emphasises testability.
     - Its configuration APIs are similar to Angular as well.
+    - It uses annotations like used in SpringBoot etc.
 
     Many conventions and best practices used in Angular applications can be also be used in Nest.
 
@@ -157,3 +158,25 @@ After this refactor, the backend and the frontend will share the same definition
 ## Visualise dependency graph
 
     npm run dep-graph
+
+## Add Swagger
+
+The [OpenAPI](https://swagger.io/specification/) (Swagger) specification is a powerful definition format to describe RESTful APIs. Nest provides a dedicated [module](https://github.com/nestjs/swagger) to work with it.
+
+    npm install --save @nestjs/swagger swagger-ui-express
+
+Add swagger configuration to `main.ts` of api application:
+
+```typescript
+  // Add Swagger
+  const options = new DocumentBuilder()
+    .setTitle('Dogs API')
+    .setDescription('The Dogs API description')
+    .setVersion('1.0')
+    .addTag('dogs')
+    .build();
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('api/help', app, document);
+```
+
+Swagger docs are then available at `http://localhost:4200/api/help/`
